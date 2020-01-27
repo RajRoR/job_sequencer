@@ -33,5 +33,13 @@ describe JobSequencer do
         expect(@response).to eq(%w[a b c])
       end
     end
+
+    context 'having a dependent job' do
+      let(:input) { File.open('./spec/factories/dependent_job.txt').read }
+
+      it 'returns array of required job sequence' do
+        expect(@response).to eq(%w[a c b])
+      end
+    end
   end
 end
