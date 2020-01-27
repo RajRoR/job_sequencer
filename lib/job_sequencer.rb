@@ -12,5 +12,16 @@ class JobSequencer
 
   def find_sequence
     return [] if @input.is_blank?
+
+    sanitize_input.flatten
+  end
+
+  private
+
+  def sanitize_input
+    @input.split("\n").map do |row|
+      jobs_str = row.gsub(/[^a-z]/i, '')
+      jobs = jobs_str.chars
+    end
   end
 end
