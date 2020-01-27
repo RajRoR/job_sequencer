@@ -21,17 +21,27 @@ class JobSequencer
   def find_sequence
     return '' if @input.is_blank?
 
-    @final_sequence = ''
     sanitize_input.each do |job, dependency|
-      dependency_index = @final_sequence.index(dependency)
+      job_index = @final_sequence.index(job)
 
-      if dependency_index
-        # Append the job if dependency is already satisfied
-        @final_sequence += job
-      else
+      # Check if there is no dependency or dependency was already added in @final_sequence
+
+      if dependency && !@final_sequence.index(dependency)
         # Append the dependency and then the job
-        @final_sequence += dependency.strip
-        @final_sequence += job unless @final_sequence.index(job)
+        @final_sequence += dependency
+
+        if job_index
+          # Find index of newly appended dependency
+          new_dependency_index = @final_sequence.length - 1
+          slicing_length = new_dependency_index - job_index
+
+          str_to_shift = @final_sequence.slice!(job_index, slicing_length)
+          @final_sequence.concat(str_to_shift)
+        else
+          @final_sequence += job
+        end
+      else
+        @final_sequence += job unless job_index
       end
     end
 
@@ -47,13 +57,7 @@ class JobSequencer
   def sanitize_input
     @input.split("\n").map do |row|
       jobs_str = row.gsub(/[^a-z]/i, '')
-
-      # Make sure to return blank as dependency of doesn't exists
-      if jobs_str.length == 2
-        jobs_str.chars
-      else
-        [jobs_str, ' ']
-      end
+      jobs_str.chars
     end
   end
 end

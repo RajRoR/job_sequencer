@@ -38,6 +38,8 @@ describe JobSequencer do
       let(:input) { File.open('./spec/factories/dependent_job.txt').read }
 
       it 'returns array of required job sequence' do
+        expect(@response.index('c')).to be < @response.index('b')
+
         expect(@response).to eq('acb')
       end
     end
@@ -46,7 +48,12 @@ describe JobSequencer do
       let(:input) { File.open('./spec/factories/multiple_jobs_having_dependency.txt').read }
 
       it 'returns array of required job sequence' do
-        expect(@response).to eq('abcdef')
+        expect(@response.index('f')).to be < @response.index('c')
+        expect(@response.index('c')).to be < @response.index('b')
+        expect(@response.index('b')).to be < @response.index('e')
+        expect(@response.index('a')).to be < @response.index('d')
+
+        expect(@response).to eq('afcbde')
       end
     end
   end
