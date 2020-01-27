@@ -41,5 +41,13 @@ describe JobSequencer do
         expect(@response).to eq('acb')
       end
     end
+
+    context 'having multiple jobs having dependency' do
+      let(:input) { File.open('./spec/factories/multiple_jobs_having_dependency.txt').read }
+
+      it 'returns array of required job sequence' do
+        expect(@response).to eq('abcdef')
+      end
+    end
   end
 end
