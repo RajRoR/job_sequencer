@@ -5,15 +5,15 @@ require 'spec_helper'
 describe JobSequencer do
   context 'input string' do
     let(:input) { '' }
+    let(:job_sequencer) { described_class.new(input) }
 
     before do
-      job_sequencer = described_class.new(input)
       @response = job_sequencer.find_sequence
+      expect(@response.class).to eq(Array)
     end
 
     context 'when blank' do
       it 'returns an empty array' do
-        expect(@response.class).to eq(Array)
         expect(@response).to be_empty
       end
     end
@@ -22,8 +22,15 @@ describe JobSequencer do
       let(:input) { 'a => ' }
 
       it 'returns array with required single job' do
-        expect(@response.class).to eq(Array)
         expect(@response).to eq(['a'])
+      end
+    end
+
+    context 'multiple independent jobs' do
+      let(:input) { File.open('./spec/factories/multiple_independent_jobs.txt').read }
+
+      it 'returns array of required job sequence' do
+        expect(@response).to eq(%w[a b c])
       end
     end
   end
