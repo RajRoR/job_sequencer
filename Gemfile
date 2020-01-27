@@ -11,4 +11,5 @@ end
 
 gem 'rubocop', require: false, group: :development
 
+# To require nested files with ease
 gem 'require_all'

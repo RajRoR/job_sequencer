@@ -63,8 +63,16 @@ describe JobSequencer do
       context 'having self dependencies' do
         let(:input) { File.open('./spec/factories/job_having_dependency.txt').read }
 
-        it 'raises expcetion - CustomException::SelfDependencyException' do
+        it 'raises exception - CustomException::SelfDependencyException' do
           expect { job_sequencer.find_sequence }.to raise_error(CustomException::SelfDependencyException)
+        end
+      end
+
+      context 'having circular dependencies' do
+        let(:input) { File.open('./spec/factories/job_having_circular_dependency.txt').read }
+
+        it 'raises exception - CustomException::CircularDependencyException' do
+          expect { job_sequencer.find_sequence }.to raise_error(CustomException::CircularDependencyException)
         end
       end
     end
