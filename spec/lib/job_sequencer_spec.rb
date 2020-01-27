@@ -9,7 +9,7 @@ describe JobSequencer do
 
     before do
       @response = job_sequencer.find_sequence
-      expect(@response.class).to eq(Array)
+      expect(@response.class).to eq(String)
     end
 
     context 'when blank' do
@@ -22,7 +22,7 @@ describe JobSequencer do
       let(:input) { 'a => ' }
 
       it 'returns array with required single job' do
-        expect(@response).to eq(['a'])
+        expect(@response).to eq('a')
       end
     end
 
@@ -30,7 +30,7 @@ describe JobSequencer do
       let(:input) { File.open('./spec/factories/multiple_independent_jobs.txt').read }
 
       it 'returns array of required job sequence' do
-        expect(@response).to eq(%w[a b c])
+        expect(@response).to eq('abc')
       end
     end
 
@@ -38,7 +38,7 @@ describe JobSequencer do
       let(:input) { File.open('./spec/factories/dependent_job.txt').read }
 
       it 'returns array of required job sequence' do
-        expect(@response).to eq(%w[a c b])
+        expect(@response).to eq('acb')
       end
     end
   end

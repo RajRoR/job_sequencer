@@ -16,11 +16,11 @@ class JobSequencer
 
   # Find the sequence of jobs according to dependencies
   #
-  # @return [Array]: ordered jobs based on dependencies
+  # @return [String]: ordered jobs based on dependencies
   def find_sequence
-    return [] if @input.is_blank?
+    return '' if @input.is_blank?
 
-    sanitize_input.flatten
+    sanitize_input.join
   end
 
   private
