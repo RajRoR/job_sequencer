@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe JobSequencer do
-  # Tests goes here
+  it 'should return an empty array' do
+    job_sequencer = described_class.new('')
+    sequence = job_sequencer.find_sequence
+
+    expect(sequence.class).to eq(Array)
+    expect(sequence).to be_empty
+  end
 end

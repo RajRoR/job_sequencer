@@ -8,3 +8,5 @@ group :development, :test do
 end
 
 gem 'rubocop', require: false, group: :development
+
+gem 'require_all'
