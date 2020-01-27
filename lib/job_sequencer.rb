@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_all 'lib/ext'
+require_all 'lib'
 
 # Class JobSequencer - Responsible to run the provided input string of jobs
 # Initialize class, JobSequencer
@@ -22,6 +22,9 @@ class JobSequencer
     return '' if @input.is_blank?
 
     sanitize_input.each do |job, dependency|
+      # Check for sel-dependency
+      raise CustomException::SelfDependencyException.new if job == dependency
+
       job_index = @final_sequence.index(job)
 
       # Check if there is no dependency or dependency was already added in @final_sequence
