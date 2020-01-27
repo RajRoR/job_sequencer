@@ -56,5 +56,13 @@ describe JobSequencer do
         expect(@response).to eq('afcbde')
       end
     end
+
+    context 'having self dependencies' do
+      let(:input) { File.open('./spec/factories/job_having_dependency.txt').read }
+
+      it 'raises expcetion - CustomException::SelfDependencyException' do
+        expect { @response }.to raise_error(CustomException::SelfDependencyException)
+      end
+    end
   end
 end
