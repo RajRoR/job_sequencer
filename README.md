@@ -1,3 +1,7 @@
+<a href="https://frontend.code-inspector.com/public/user/github/RajRoR">
+   <img src="https://code-inspector.com/public/badge/user/github/RajRoR?style=light" alt="code inspector badge" />
+</a>
+
 # Job Sequencer
 
 Imagine we have a list of jobs, each represented by a character. Because certain jobs must be done before others, a job may have a
